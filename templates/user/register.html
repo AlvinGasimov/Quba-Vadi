@@ -1,0 +1,184 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Qeydiyyat' %} {% endblock %}
+
+{% block content %}
+
+    <main>
+
+        <div class="breadcumb-area d-flex align-items-center"
+            style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="breacumb-content">
+                            <div class="breadcum-title">
+                                <h4>{% trans "Qeydiyyat" %}</h4>
+                            </div>
+                            <ul>
+                                <li><a href="{% url 'base:index' %}">{% trans "Ana səhifə" %}</a></li>
+                                <li>/</li>
+                                <li>{% trans "Qeydiyyat" %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="after-none contact-bg pt-50 pb-140 p-relative fix">
+            <div class="container">
+                <div class="row justify-content-center ">
+                    <div class="col-lg-8">
+                        <div class="contact-bg02 ">
+                            <div class="section-title center-align mb-40 text-center wow fadeInDown animated"
+                                data-animation="fadeInDown" data-delay=".4s">
+                                <h2>{% trans "Qeydiyyat keç" %}</h2>
+                            </div>
+                            <form method="POST" class="register-form mt-20">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="contact-field p-relative c-name">
+                                            {{ form.first_name }}
+                                            {% if form.first_name.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.first_name.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="contact-field p-relative c-name">
+                                            {{ form.last_name }}
+                                            {% if form.last_name.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.last_name.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="contact-field p-relative c-name">
+                                            <div class="contact-field p-relative c-subject">
+                                                {{ form.email }}
+                                            </div>
+                                            {% if form.email.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.email.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="contact-field p-relative c-phone">
+                                            {{ form.phone_number }}
+                                            {% if form.phone_number.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.phone_number.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            {{ form.password }}
+                                            {% if form.password.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.password.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            <div class="icon-holder">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            {{ form.confirm_password }}
+                                            {% if form.confirm_password.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.confirm_password.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            <div class="icon-holder">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="row d-flex align-items-center form-bottom">
+                                        <div class="col-lg-5">
+                                            <div class="slider-btn">
+                                                <button class="btn btn-primary" type="submit"><span>{% trans 'Qeydiyyatdan keç' %}</span></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-7 col-sm-12">
+                                            <div class="right">
+                                                <h6><span>*</span>{% trans 'Hesabınız var?' %}
+                                                    <a href="{% url 'user:login' %}">{% trans 'Daxil ol' %}</a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+{% endblock %}
+
+{% block js %}
+
+    <script>
+
+        let passwordInputs = document.querySelectorAll('input[type="password"]')
+        let iconHolders = document.querySelectorAll('.icon-holder')
+
+        iconHolders.forEach(iconHolders => {
+
+            iconHolders.addEventListener('click', function () {
+                let passwordInput = this.previousElementSibling
+
+                let icon = this.querySelector('i')
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text'
+                    icon.classList.remove('fa-eye-slash')
+                    icon.classList.add('fa-eye')
+                }
+                else {
+                    passwordInput.type = 'password'
+                    icon.classList.add('fa-eye-slash')
+                    icon.classList.remove('fa-eye')
+                }
+
+            })
+        })
+    </script>
+
+{% endblock %}

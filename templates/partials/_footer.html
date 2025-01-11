@@ -1,0 +1,135 @@
+{% load static %} 
+{% load i18n %}
+
+    <div class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-widget-contact">
+                        <div class="footer-widget-logo">
+                            <a href="{% url 'base:index' %}"><img src="{{ navigation_item.footer_img.url }}" alt=""></a>
+                        </div>
+                        <div class="footer-widget-content">
+                            <div class="footer-widget-title">
+                                <h4>{% trans "Əlaqə məlumatları" %}</h4>
+                            </div>
+                            <div class="footer-widget-contact-info">
+                                <ul>
+                                    <li><i class="bi bi-telephone-fill"></i><a href="tel:{{ navigation_item.phone }}">{{ navigation_item.phone }}</a></li>
+                                    <li><i class="bi bi-envelope"></i><a
+                                            href="mailto:{{ navigation_item.email }}">{{ navigation_item.email }}</a></li>
+                                    <li><i class="bi bi-geo-alt-fill"></i><a href="">{{ navigation_item.address }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-widget-social-icon">
+                            <ul>
+
+                                {% if navigation_item.facebook_link %}
+                                    <li>
+                                        <a href="{{ navigation_item.facebook_link }}"><i class="fab fa-facebook-f"></i></a>
+                                    
+                                    </li>
+                                {% endif %}
+
+                                {% if navigation_item.instagram_link %}
+                                    <li>
+                                        <a href="{{ navigation_item.instagram_link }}"><i class="fab fa-instagram"></i></a>
+                                    
+                                    </li>
+                                {% endif %}
+
+                                {% if navigation_item.whatsapp_number %}
+                                    <li>
+                                        <a href="https://api.whatsapp.com/send?phone={{ navigation_item.whatsapp_number }}"><i class="fab fa-whatsapp"></i></a>
+                                    
+                                    </li>
+                                {% endif %}
+
+                                {% if navigation_item.tiktok_link %}
+                                    <li>
+                                        <a href="{{ navigation_item.tiktok_link }}"><i class="fab fa-tiktok"></i></a>
+                                    
+                                    </li>
+                                {% endif %}
+
+                                {% if navigation_item.telegram_link %}
+                                    <li>
+                                        <a href="{{ navigation_item.telegram_link }}"><i class="fab fa-telegram"></i></a>
+                                    
+                                    </li>
+                                {% endif %}
+
+                                {% if navigation_item.youtube_link %}
+                                    <li>
+                                        <a href="{{ navigation_item.youtube_link }}"><i class="fab fa-youtube"></i></a>
+                                    </li>
+                                {% endif %}
+
+                                {% if navigation_item.twitter_link %}
+                                    <li>
+                                        <a href="{{ navigation_item.twitter_link }}"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-widget-content upper">
+                        <div class="footer-widget-title">
+                            <h4>{% trans "Keçidlər" %}</h4>
+                        </div>
+                        <div class="footer-widget-menu">
+                            <ul>
+                                <li><a href="{% url 'base:index' %}">{% trans "Ana səhifə" %}</a></li>
+                                <li><a href="{% url 'base:about' %}">{% trans "Haqqımızda" %}</a></li>
+                                <li><a href="{% url 'base:index' %}#services">{% trans "Xidmətlərimiz" %}</a></li>
+                                <li><a href="{% url 'room:rooms' %}">{% trans "Otaqlarımız" %}</a></li>
+                                <li><a href="{% url 'blog:blogs' %}">{% trans "Bloq" %}</a></li>
+                                <li><a href="{% url 'contact:contact' %}">{% trans "Əlaqə" %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-widget-content">
+                        <div class="footer-widget-title">
+                            <h4>{% trans "Abonəlik" %}</h4>
+                        </div>
+                        <div class="single-newsletter-box">
+                            <form action="{% url 'base:index' %}" method="post" class="form-horizontal">
+                                {% csrf_token %}
+                                {{ form.email }}
+                                <button type="submit">{% trans "Abone ol" %}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="footer-bottom-content">
+                        <h4>© <a href="{% url 'base:index' %}">Quba Vadi</a>. {% trans "Bütün hüquqlar qorunur." %}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="curser"></div>
+    <div class="curser2"></div>
+
+    <div class="prgoress_indicator active-progress">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 270.456;">
+            </path>
+        </svg>
+    </div>

@@ -1,0 +1,206 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Ödəniş' %} {% endblock %}
+
+{% block content %}
+
+    <main>
+
+        <div class="breadcumb-area d-flex align-items-center"
+            style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="breacumb-content">
+                            <div class="breadcum-title">
+                                <h4>{% trans 'Ödəniş' %}</h4>
+                            </div>
+                            <ul>
+                                <li><a href="{% url 'base:index' %}">{% trans 'Ana səhifə' %}</a></li>
+                                <li>/</li>
+                                <li>{% trans 'Ödəniş' %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="reservation-area" class="contact-area after-none contact-bg pt-50 pb-90 p-relative fix">
+            <div class="container">
+                <div class="row justify-content-center single-room-reservation">
+                    <div class="col-lg-4 payment-left">
+                        <div class="">
+                            <div class="single-cta pb-30 mb-30 wow fadeInUp animated"
+                                data-animation="fadeInDown animated" data-delay=".2s">
+                                <div class="single-services mb-30">
+                                    <div class="services-thumb">
+                                        <a href="single-{% url 'room:rooms' %}">
+                                            <img src="assets/images/home-1/room-3.jpg" alt="img">
+                                        </a>
+                                    </div>
+                                    <div class="services-content">
+                                        <h4><a href="single-{% url 'room:rooms' %}">Superior Double Room</a></h4>
+                                        <div class="room-price">200 ₼</div>
+                                        <div class="spending-area">Neçə gece <span class="spend-day ">3</span></div>
+                                        <div class="rooms-all-link">
+                                            <a href="room-details.html">Ətraflı</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 payment-right">
+                        <div class="contact-bg02 reservation">
+                            <div class="section-title center-align mb-40 text-center wow fadeInDown animated"
+                                data-animation="fadeInDown" data-delay=".4s">
+                                <h2>Bron et</h2>
+                            </div>
+                            <form action="#" class="payment-form mt-20">
+                                <div class="row">
+
+                                    <div class="nationalty align-items-center mb-field-box">
+                                        <div class="row id-number">
+                                            <div class="col-6">
+                                                <div class="seriya-number-input mb-20">
+                                                    <p>Bron edən şəxsin</p>
+                                                    <div class="contact-field ">
+                                                        <input type="text" name="seriya"
+                                                            placeholder="Şəxsiyyətin seriyası" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="seriya-number-input mb-20">
+                                                    <p>Digər şəxsin(böyük)</p>
+                                                    <div class="contact-field ">
+                                                        <input type="text" name="seriya"
+                                                            placeholder="Şəxsiyyətin seriyası" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                                <div class="seriya-number-input mb-20">
+                                                    <p>Digər şəxsin(böyük)</p>
+                                                    <div class="contact-field ">
+                                                        <input type="text"  name="seriya"
+                                                            placeholder="Şəxsiyyətin seriyası" required>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-6">
+                                                <div class="seriya-number-input mb-20">
+                                                    <p>Digər şəxsin(uşaq) </p>
+                                                    <div class="contact-field ">
+                                                        <input type="text" name="seriya"
+                                                            placeholder="Şəxsiyyətin seriyası" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="seriya-number-input mb-20">
+                                                    <p>Digər şəxsin(uşaq)</p>
+                                                    <div class="contact-field ">
+                                                        <input type="text" name="seriya"
+                                                            placeholder="Şəxsiyyətin seriyası" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <div class="seriya-number-input mb-20">
+                                                    <p>Digər şəxsin(uşaq)</p>
+                                                    <div class="contact-field ">
+                                                        <input type="text"  name="seriya"
+                                                            placeholder="Şəxsiyyətin seriyası" required>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-info">
+                                            <div class="row id-number">
+                                                <div class="col-6">
+                                                    <div class="seriya-number-input mb-20">
+                                                        <p>Kartın nömrəsi</p>
+                                                        <div class="contact-field ">
+                                                            <input type="text" name="seriya"
+                                                                placeholder="Kartın nömrəsi" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="seriya-number-input mb-20">
+                                                        <p>Kartın bitmə tarixi</p>
+                                                        <div class="contact-field ">
+                                                            <input type="text" name="seriya" placeholder="12/27"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <div class="seriya-number-input mb-20">
+                                                        <p>Kartın CVV </p>
+                                                        <div class="contact-field ">
+                                                            <input type="text" name="seriya" placeholder="CVV" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-total-price">
+                                        <span>Cəmi: </span> <span class="calc-price">250 ₼</span>
+                                    </div>
+
+                                    <div class="room-total-price">
+                                        <span>Note: </span> <span class="calc-price">Bron 2 həftə ərzində ləğv edilə
+                                            bilər.</span>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="slider-btn">
+                                            <button class="" type="submit"><span>Göndər</span></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+{% endblock %}
+
+{% block js %}
+    
+    <script>
+        // Get the room price and spend day elements
+        const roomPriceElement = document.querySelector('.room-price');
+        const spendDayElement = document.querySelector('.spend-day');
+        const calcPriceElement = document.querySelector('.calc-price');
+
+        // Extract numerical values
+        const roomPrice = parseFloat(roomPriceElement.textContent.trim().replace('₼', ''));
+        const spendDays = parseInt(spendDayElement.textContent.trim(), 10);
+
+        // Calculate the total
+        const totalPrice = roomPrice * spendDays;
+
+        // Update the calc-price element
+        calcPriceElement.textContent = `${totalPrice} ₼`;
+    </script>
+
+{% endblock %}

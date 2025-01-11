@@ -1,0 +1,136 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Giriş' %} {% endblock %}
+
+{% block content %}
+
+    <main>
+
+        <div class="breadcumb-area d-flex align-items-center"
+            style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="breacumb-content">
+                            <div class="breadcum-title">
+                                <h4>{% trans "Daxil ol" %}</h4>
+                            </div>
+                            <ul>
+                                <li><a href="{% url 'base:index' %}">{% trans "Ana səhifə" %}</a></li>
+                                <li>/</li>
+                                <li>{% trans "Daxil ol" %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="after-none contact-bg pt-30 pb-140 p-relative fix">
+            <div class="container">
+
+                <div class="row justify-content-center ">
+                    <div class="col-lg-5">
+                        <div class="contact-bg02 ">
+                            <div class="center-align text-center wow fadeInDown animated" data-animation="fadeInDown"
+                                data-delay=".4s">
+                                <h2>{% trans "Daxil ol" %}</h2>
+                            </div>
+                            <form method="POST" class="register-form mt-20">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-field mb-3">
+                                            <div class="contact-field p-relative c-subject">
+                                                {{ form.email }}
+                                            </div>
+                                            {% if form.email.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.email.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-12">
+                                        <div class="input-field mb-3">
+                                            <div class="contact-field p-relative c-subject">
+                                                {{ form.password }}
+                                            </div>
+                                            {% if form.password.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.password.errors %}
+                                                        <p>{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            <div class="icon-holder">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-12">
+                                        <a href="{% url 'user:send-email-code' %}" class="forget-password">{% trans "Şifrəmi unutdum" %}</a>
+                                    </div>
+                            
+                                    <div class="row d-flex align-items-center form-bottom">
+                                        <div class="col-lg-5">
+                                            <div class="slider-btn">
+                                                <button type="submit" class="btn btn-primary"><span>{% trans "Daxil ol" %}</span></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-7 col-sm-12">
+                                            <div class="right">
+                                                <h6><span>*</span>{% trans "Hesabınız yoxdur?" %}
+                                                    <a href="{% url 'user:register' %}">{% trans "Qeydiyyatdan keç" %}</a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+{% endblock %}
+
+{% block js %}
+
+    <script>
+
+        let passwordInputs = document.querySelectorAll('input[type="password"]')
+        let iconHolders = document.querySelectorAll('.icon-holder')
+
+        iconHolders.forEach(iconHolders => {
+
+            iconHolders.addEventListener('click', function () {
+                let passwordInput = this.previousElementSibling
+
+                let icon = this.querySelector('i')
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text'
+                    icon.classList.remove('fa-eye-slash')
+                    icon.classList.add('fa-eye')
+                }
+                else {
+                    passwordInput.type = 'password'
+                    icon.classList.add('fa-eye-slash')
+                    icon.classList.remove('fa-eye')
+                }
+
+            })
+        })
+    </script>
+
+{% endblock %}

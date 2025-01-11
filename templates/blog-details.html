@@ -1,0 +1,130 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {{ blog.title }} {% endblock %}
+
+{% block content %}
+
+	<div class="breadcumb-area d-flex align-items-center"
+		style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-12">
+					<div class="breacumb-content">
+						<div class="breadcum-title">
+							<h4>{{ blog.title }}</h4>
+						</div>
+						<ul>
+							<li><a href="{% url 'base:index' %}">{% trans 'Ana Səhifə' %}</a></li>
+							<li>/</li>
+							<li>{{ blog.title }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="blog-details-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="row">
+						<div class="room-details-content">
+							<div class="row">
+								<div class="room-details-list owl-carousel">
+									<div class="col-lg-12">
+										<div class="room-detils-thumb">
+											<img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<h1>{{ blog.title }}</h1>
+							<p class="room-detils-desc">{{ blog.description|linebreaks }}</p>
+						</div>
+						<div class="blog-area blog-related-area">
+							<div class="row post-items-style3">
+                                {% for item in blog.images.all %}
+                                    <div class="col-lg-4 col-md-6 col-6">
+                                        <div class="single_related">
+                                            <div class="related_thumb">
+                                                <a href="{{ item.image.url }}" data-fancybox="blog-images">
+                                                    <img src="{{ item.image.url }}" alt="">
+                                                    <span class="zoom-icon"><i class="fa fa-search"></i></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="widget-categories-box">
+								<div class="categories_title">
+									<h4>{% trans 'Ən məşhur postlar' %} </h4>
+								</div>
+                                {% for blog in last_blogs %}
+                                    <div class="sidber-widget-recent-post">
+                                        <div class="recent-widget-thumb">
+                                            <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                                        </div>
+                                        <div class="recent-widget-content">
+                                            <a href="{% url 'blog:blog_details' blog.slug %}">{{ blog.title }}</a>
+                                            <p> {{ blog.created_at|date:"M d, Y h:i A" }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+							</div>
+							<div class="widget-categories-box">
+								<div class="categories_title">
+									<h4>{% trans 'Kateqoriyalar' %} </h4>
+								</div>
+								<div class="widget-catefories-list">
+									<ul>
+                                        {% for item in blog_categories %}
+										    <li>
+                                                <a href="#"><i class="fas fa-angle-double-right"></i>{{ item.name }}</a>
+                                            </li>
+                                        {% endfor %}
+									</ul>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="brand-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-8">
+					<div class="row">
+                        <div class="brand-list owl-carousel">
+                            {% for brand in brands %}
+                                <div class="col-lg-12">
+                                    <div class="single-brand-box">
+                                        <div class="brand-thumb">
+                                            <img src="{{ brand.image.url }}" alt="{{ brand.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

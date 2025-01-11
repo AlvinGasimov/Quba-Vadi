@@ -1,0 +1,386 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Ana Səhifə' %} {% endblock %}
+
+{% block content %}
+
+    <div class="hero-slider owl-carousel">
+        {% for hotel in home_hotels %}
+            <div class="hero-area home-1 align-items-center d-flex"
+                style="background-image: url({{ hotel.image.url }});">
+                <div class="aff"></div>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="hotel-rating">
+                                <ul>
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= hotel.star_number %}
+                                            <li><i class="bi bi-star-fill"></i></li>
+                                        {% else %}
+                                            <li><i class="bi bi-star"></i></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="hero-content">
+                                <h4>{{ hotel.title }}</h4>
+                                <h1>{{ hotel.content }}</h1>
+                            </div>
+                            <div class="luxury-button">
+                                <a href="{% url 'room:rooms' %}">{% trans 'Daha çox' %}</a>
+                            </div>
+                            <div class="hero-contact">
+                                <a href="tel:{{ hotel.owner_phone_number }}">
+                                    <i class="bi bi-telephone-fill"></i>{{ hotel.owner_phone_number }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="hero-slider owl-carousel responsive-hero-slider">
+        {% for hotel in home_hotels %}
+            <div class="hero-area home-1 align-items-center d-flex"
+                style="background-image: url({{ hotel.resp_image.url }});">
+                <div class="aff"></div>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="hotel-rating">
+                                <ul>
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= hotel.star_number %}
+                                            <li><i class="bi bi-star-fill"></i></li>
+                                        {% else %}
+                                            <li><i class="bi bi-star"></i></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="hero-content">
+                                <h4>{{ hotel.title }}</h4>
+                                <h1>{{ hotel.content }}</h1>
+                            </div>
+                            <div class="luxury-button">
+                                <a href="{% url 'room:rooms' %}">{% trans 'Daha çox' %}</a>
+                            </div>
+                            <div class="hero-contact">
+                                <a href="tel:{{ hotel.owner_phone_number }}">
+                                    <i class="bi bi-telephone-fill"></i>{{ hotel.owner_phone_number }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="booking-area home-1">
+        <div class="container">
+            <form action="" method="POST" id="dreamit-form">
+                <div class="row add-bg align-items-center">
+                    <div class="booking-input-box">
+                        <h4>{% trans 'Giriş' %}</h4>
+                        <input type="date" required>
+                    </div>
+                    <div class="booking-input-box">
+                        <h4>{% trans 'Cıxış' %}</h4>
+                        <input type="date" required>
+                    </div>
+                    <div class="booking-input-box">
+                        <h4>Otaqlar</h4>
+                        <select name="room_category" id="place">
+                            <option value="" selected hidden>{% trans 'Otaq seçin' %}</option>
+                            {% for category in categories %}
+                                <option value="{{ category.slug }}" name="{{ category.slug }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="booking-input-box upper">
+                        <h4>Guests</h4>
+                        <select name="room_capacity">
+                            <option value="" selected hidden>{% trans 'Nəfər sayı' %}</option>
+                            
+                            {% for room in rooms %}
+                                <option value="{{ room.slug }}">
+                                    {{ room.mature_capacity }} {% trans 'valideyn' %}, {{ room.young_capacity }} {% trans 'uşaq' %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        
+                    </div>
+
+
+                    <script>
+                        const placeSelect = document.getElementById('place');
+                        const personSelect = document.getElementById('person');
+
+                        const syncSelections = (source, target) => {
+                            const selectedOption = source.options[source.selectedIndex];
+                            const selectedName = selectedOption.getAttribute('name');
+
+                            for (let i = 0; i < target.options.length; i++) {
+                                const targetOption = target.options[i];
+                                if (targetOption.getAttribute('name') === selectedName) {
+                                    target.selectedIndex = i;
+                                    return;
+                                }
+                            }
+                        };
+
+                        placeSelect.addEventListener('change', () => {
+                            syncSelections(placeSelect, personSelect);
+                        });
+
+                        personSelect.addEventListener('change', () => {
+                            syncSelections(personSelect, placeSelect);
+                        });
+                    </script>
+
+
+                    <div class="booking-button">
+                        <button type="submit">Bron et</button>
+                    </div>
+                </div>
+            </form>
+            <div id="status"></div>
+        </div>
+    </div>
+
+    <div class="room-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title center" data-cue="zoomIn">
+                        <div class="section-thumb">
+                            <img src="{% static 'assets/images/fav.png' %}" alt="">
+                        </div>
+                        <h1>{% trans 'Otaqlar' %}</h1>
+                        <div class="rooms-all-link">
+                            <a href="{% url 'room:rooms' %}"> {% trans 'Hamısına bax' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="room-area">
+        <div class="container">
+            <div class="row margin-top" data-cue="zoomIn">
+                <div class="room_list owl-carousel">
+
+                    {% for room in rooms %}
+                        <div class="col-lg-12">
+                            <div class="room-single-box">
+                                <div class="room-thumb">
+                                    <img src="{{ room.image.url }}" alt="">
+                                    <div class="room-details-button">
+                                        <a href="{% url 'room:room-details' room.slug %}">{% trans 'Daha ətraflı' %}<i class="bi bi-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                                <div class="room-pricing">
+                                    <span class="dolar">{{ room.price }} ₼</span>
+                                    {% if room.discount_price %}
+                                        <span class="high-price">{{ room.discount_price }} ₼</span>
+                                    {% endif %}
+                                    <span>Gecə</span>
+                                </div>
+                                <div class="room-content">
+                                    <a href="{% url 'room:room-details' room.slug %}">{{ room.name }}</a>
+                                    <p>{{ room.mature_capacity }} {% trans 'valideyn' %}, {{ room.young_capacity }} {% trans 'uşaq' %}</p>
+                                </div>
+                                <div class="room-bottom">
+                                    <div class="room-bottom-icon">
+                                        <span>
+                                            <img src="{% static 'assets/images/home-1/room-bottom-icon.png' %}" alt="">
+                                            {{ room.bed_position }}
+                                        </span>
+                                    </div>
+                                    <div class="coustomar-rating">
+                                        <ul>
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= room.star_number %}
+                                                    <li><i class="bi bi-star-fill"></i></li>
+                                                {% else %}
+                                                    <li><i class="bi bi-star"></i></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-area index-about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12">
+                    <div class="row">
+                        <div class="about_list owl-carousel">
+                            <div class="col-md-12">
+                                <div class="about-thumb">
+                                    <img src="{{ about.image.url }}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12  upper">
+                    <div class="section-title two" data-cue="zoomIn">
+                        <h4>{% trans 'Quba Vadi' %}</h4>
+                        <h1>{{ about.title }}</h1>
+                        <div class="section-desc-2">
+                            <p>{{ about.content|linebreaks }}</p>
+                        </div>
+
+                    </div>
+                    <div class="about-conuter-box" data-cue="zoomIn">
+                        <div class="about-counter-content">
+                            <h4 class="counter">{{ about.customer_count }}</h4>
+                            <span>+</span>
+                            <p>{% trans 'Məmnun müştərilər' %}</p>
+                        </div>
+                    </div>
+
+                    <div class="animation-bar" data-cue="zoomIn">
+                    </div>
+                    <div class="luxury-button" data-cue="zoomIn">
+                        <a href="{% url 'base:about' %}">{% trans 'Daha çox' %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-area" id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title center" data-cue="zoomIn">
+                        <div class="section-thumb">
+                            <img src="{% static 'assets/images/fav.png' %" alt="">
+                        </div>
+                        <h1>{% trans 'Xidmətlərimiz' %}</h1>
+                        <div class="section-desc-1">
+                            <p> {% trans 'Xidmətlərimizi ən yaxşı şəkildə təqdim edirik. Bizimlə əlaqə saxlayın.' %} </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-start" data-cue="zoomIn">
+                {% for service in services %}
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6 ">
+                        <div class="single-feature-box">
+                            <a href="{% url 'service:service_details' service.slug  %}">
+                                <div class="feature-icon">
+                                    <img src="{{ service.image.url }}" alt="{{ service.title }}">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>{{ service.title }}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="call-do-action-area">
+        <div class="container">
+            <div class="row align-items-center call-do-action-bg"
+                style="background-image: url({{ mission.image.url }});">
+                <div class="col-lg-6 col-md-12">
+                    <div class="section-title two" data-cue="zoomIn" data-show="true"
+                        style="animation-name: zoomIn; animation-duration: 2500ms; animation-timing-function: ease; animation-delay: 0ms; animation-direction: normal; animation-fill-mode: both;">
+                        <h4>{% trans 'Quba Vadi' %}</h4>
+                        <h1>{{ mission.title }}</h1>
+                        <p class="section-desc-2">{{ mission.content }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="call-do-action-video" data-cues="zoomIn" data-disabled="true">
+                        <a class="video-vemo-icon venobox vbox-item" data-vbtype="youtube" data-autoplay="true"
+                            href="{{ mission.video_url }}" data-cue="zoomIn"
+                            data-show="true"
+                            style="animation-name: zoomIn; animation-duration: 2500ms; animation-timing-function: ease; animation-delay: 0ms; animation-direction: normal; animation-fill-mode: both;"><i class="bi bi-play"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center" data-cue="zoomIn">
+                    <div class="section-title center">
+                        <div class="section-thumb">
+                            <img src="{% static 'assets/images/fav.png' %}" alt="">
+                        </div>
+                        <h1>{% trans 'Bloqlarımız' %}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for blog in last_blogs %}
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="single-blog-box" data-cue="zoomIn">
+                            <div class="single-blog-thumb">
+                                <img src="{{ blog.image.url }}" alt="">
+                            </div>
+                            <div class="blog-content">
+                                <div class="meta-blog">
+                                    <span>{{ blog.created_at|date:"F d, Y" }}</span>
+                                    <span>{{ blog.category.name }}</span>
+                                </div>
+                                <a href="{% url 'blog:blog_details' blog.slug %}">{{ blog.title }}</a>
+                            </div>
+                            <div class="blog-button">
+                                <a href="{% url 'blog:blog_details' blog.slug %}">{% trans 'Daha çox' %}<span><i class="bi bi-arrow-right"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="brand-area" data-cue="zoomIn">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="brand-list owl-carousel">
+                            {% for brand in brands %}
+                                <div class="col-lg-12">
+                                    <div class="single-brand-box">
+                                        <div class="brand-thumb">
+                                            <img src="{{ brand.image.url }}" alt="{{ brand.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

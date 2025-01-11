@@ -1,0 +1,184 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Haqqımızda' %} {% endblock %}
+
+{% block content %}
+
+	<div class="breadcumb-area d-flex align-items-center"
+		style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-12">
+					<div class="breacumb-content">
+						<div class="breadcum-title">
+							<h4>{% trans 'Haqqımızda' %}</h4>
+						</div>
+						<ul>
+							<li><a href="{% url 'base:index' %}">{% trans 'Ana Səhifə' %}</a></li>
+							<li>/</li>
+							<li>{% trans 'Haqqımızda' %}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="about-area inner">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6">
+					<div class="about-thumb">
+						<img src="{{ about.image.url }}" alt="">
+					</div>
+				</div>
+				<div class="col-lg-6  upper">
+					<div class="section-title two">
+						<h4>{% trans 'Quba Vadi' %}</h4>
+						<h1>{{ about.title }}</h1>
+						<p class="section-desc-2"> {{ about.content|linebreaks }} </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="feature-area" id="services">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="section-title center" data-cue="zoomIn">
+						<div class="section-thumb">
+							<img src="assets/images/fav.png" alt="">
+						</div>
+						<h1>{% trans 'Xidmətlərimiz' %}</h1>
+						<div class="section-desc-1">
+							<p> {% trans 'Xidmətlərimizi ən yaxşı şəkildə təqdim edirik. Bizimlə əlaqə saxlayın.' %} </p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="row d-flex" data-cue="zoomIn">
+				{% for service in services %}
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6 ">
+                        <div class="single-feature-box">
+                            <a href=" ">
+                                <div class="feature-icon">
+                                    <img src="{{ service.image.url }}" alt="{{ service.title }}">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>{{ service.title }}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="call-do-action-area mb-4">
+        <div class="container">
+            <div class="row align-items-center call-do-action-bg"
+                style="background-image: url({{ mission.image.url }});">
+                <div class="col-lg-6 col-md-12">
+                    <div class="section-title two" data-cue="zoomIn" data-show="true"
+                        style="animation-name: zoomIn; animation-duration: 2500ms; animation-timing-function: ease; animation-delay: 0ms; animation-direction: normal; animation-fill-mode: both;">
+                        <h4>{% trans 'Quba Vadi' %}</h4>
+                        <h1>{{ mission.title }}</h1>
+                        <p class="section-desc-2">{{ mission.content }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="call-do-action-video" data-cues="zoomIn" data-disabled="true">
+                        <a class="video-vemo-icon venobox vbox-item" data-vbtype="youtube" data-autoplay="true"
+                            href="{{ mission.video_url }}" data-cue="zoomIn"
+                            data-show="true"
+                            style="animation-name: zoomIn; animation-duration: 2500ms; animation-timing-function: ease; animation-delay: 0ms; animation-direction: normal; animation-fill-mode: both;"><i class="bi bi-play"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div class="faqs-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="section-title inner">
+						<div class="section-thumb">
+							<img src="{% static 'assets/images/fav.png' %}" alt="">
+						</div>
+						<h1>{% trans 'Tez-tez verilən suallar' %}</h1>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 mx-auto">
+                    {% for item in faqs %}
+                        <div class="faqs" data-cue="zoomIn" data-show="true"
+                            style="animation-name: zoomIn; animation-duration: 2500ms; animation-timing-function: ease; animation-delay: 0ms; animation-direction: normal; animation-fill-mode: both;">
+                            <div class="question">
+                                {{ item.question }}
+                            </div>
+                            <div class="answer">
+                                <p>{{ item.answer }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+				</div>
+            </div>
+        </div>
+    </div>
+
+	<div class="brand-area" data-cue="zoomIn">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-8">
+					<div class="row">
+                        <div class="brand-list owl-carousel">
+                            {% for brand in brands %}
+                                <div class="col-lg-12">
+                                    <div class="single-brand-box">
+                                        <div class="brand-thumb">
+                                            <img src="{{ brand.image.url }}" alt="{{ brand.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block js %}
+
+	<script>
+		let question = document.querySelectorAll(".question");
+		question.forEach(question => {
+			question.addEventListener("click", event => {
+				const active = document.querySelector(".question.active");
+				if (active && active !== question) {
+					active.classList.toggle("active");
+					active.nextElementSibling.style.maxHeight = 0;
+				}
+				question.classList.toggle("active");
+				const answer = question.nextElementSibling;
+				if (question.classList.contains("active")) {
+					answer.style.maxHeight = answer.scrollHeight + "px";
+				} else {
+					answer.style.maxHeight = 0;
+				}
+			})
+		})
+	</script>
+
+{% endblock %}

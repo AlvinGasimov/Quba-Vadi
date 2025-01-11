@@ -1,0 +1,108 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Xidmətlər' %} {% endblock %}
+
+{% block content %}
+
+	<div class="breadcumb-area d-flex align-items-center"
+		style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-12">
+					<div class="breacumb-content">
+						<div class="breadcum-title">
+							<h4>{{ service.title }}</h4>
+						</div>
+						<ul>
+							<li><a href="{% url 'base:index' %}">{% trans 'Ana Səhifə' %}</a></li>
+							<li>/</li>
+							<li>{{ service.title }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <section class="container">
+        <div class="blog-area blog-related-area">
+            <div class="section-title">
+                <h4>{{ service.title }} Şəkilləri</h4>
+            </div>
+            <div class="row post-items-style3">
+                {% if service.images.exists %}
+                    {% for item in service.images.all %}
+                        <div class="col-lg-4 col-md-6 col-6">
+                            <div class="single_related">
+                                <div class="related_thumb">
+                                    <a href="{{ item.image.url }}" data-fancybox="blog-images">
+                                        <img src="{{ item.image.url }}" alt="">
+                                        <span class="zoom-icon"><i class="fa fa-search"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        {% trans 'Bu xidmət üzrə şəkil hələki əlavə olunmayıb.' %}
+                    </div>                  
+                {% endif %}
+            </div>
+
+
+            <div class="section-title">
+                <h4>{{ service.title }} Videoları</h4>
+            </div>
+
+
+            <div class="row post-items-style3">
+                {% if service.videos.exists %}
+                    {% for item in service.videos.all %}
+                        <div class="col-md-6 col-12">
+                            <div class="single_related">
+                                <div class="related_thumb">
+                                    <iframe width="560" height="315"
+                                        src="{{ item.video_url }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        {% trans 'Bu xidmət üzrə video hələki əlavə olunmayıb.' %}
+                    </div>                  
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+	<div class="brand-area" data-cue="zoomIn">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-8">
+					<div class="row">
+                        <div class="brand-list owl-carousel">
+                            {% for brand in brands %}
+                                <div class="col-lg-12">
+                                    <div class="single-brand-box">
+                                        <div class="brand-thumb">
+                                            <img src="{{ brand.image.url }}" alt="{{ brand.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% load static %}
+{% load i18n %}
+
+<div class="dark">
+    <div class="dark-button">
+        <input type="checkbox" class="toggle-switch">
+    </div>
+</div>
+
+<div class="header-area" id="sticky-header">
+    <div class="container-fulid">
+        <div class="row align-items-center">
+            <div class="col-lg-3">
+                <div class="header-logo">
+                    <a href="{% url 'base:index' %}"><img src="{{ navigation_item.navbar_img.url }}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="header-menu">
+                    <ul>
+                        <li class=""><a href="{% url 'base:index' %}">{% trans "Ana səhifə" %}</a></li>
+                        <li><a href="{% url 'base:about' %}">{% trans "Haqqımızda" %}</a></li>
+                        <li class="menu-item-has-children">
+                            <a href="{% url 'room:rooms' %}">{% trans "Otaqlarımız" %}<i class="fas fa-chevron-down"></i></a>
+                            <ul class="sub-menu">
+                                {% for category in categories %}
+                                    <li>
+                                        <a href="{% url 'room:rooms' %}?category={{ category.slug }}">{{ category.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="{% url 'base:index' %}#services">{% trans "Xidmətlərimiz" %}<i class="fas fa-chevron-down"></i></a>
+                            <ul class="sub-menu">
+                                {% for service in services %}
+                                    <li>
+                                        <a href="{% url 'service:service_details' service.slug %}">{{ service.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'blog:blogs' %}">{% trans "Bloq" %}</a></li>
+                        <li><a href="{% url 'contact:contact' %}">{% trans "Əlaqə" %}</a></li>
+                        <li class="menu-item-has-children language-li">
+                            <a href="{% url 'base:set-language' 'az' %}">Az<i class="fas fa-chevron-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'base:set-language' 'ru' %}">Ru</a></li>
+                                <li><a href="{% url 'base:set-language' 'en' %}">En</a></li>
+                                <li><a href="{% url 'base:set-language' 'ar' %}">Arab</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% if not user.is_authenticated %}
+                <div class="col-lg-2">
+                    <div class="header-button text-right">
+                        <a href=" {% url 'user:register' %}">{% trans "Qeydiyyat" %}</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-lg-2">
+                    <div class="header-button text-right">
+                        <a href="{% url 'user:account' %}">{{ user.first_name }} {{ user.last_name }}</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none ">
+    <img src="{{ navigation_item.navbar_img.url }}" alt="">
+    <li class="mobile-lang">
+        <a href=" {% url 'user:register' %}" class="user"><i class="fas fa-user"></i></a>
+        <div class="lang-user">
+            <a href="{% url 'base:set-language' 'az' %}" class="selected-lang">Az<i class="fas fa-chevron-down"></i></a>
+            <ul class="sub-menu">
+                <li><a href="{% url 'base:set-language' 'ru' %}">Ru</a></li>
+                <li><a href="{% url 'base:set-language' 'en' %}">En</a></li>
+                <li><a href="{% url 'base:set-language' 'ar' %}">Arab</a></li>
+            </ul>
+        </div>
+    </li>
+    <div class="mobile-menu">
+        <nav class="header-menu">
+            <ul class="nav_scroll">
+                <li>
+                    <a href="{% url 'base:index' %}">{% trans "Ana səhifə" %}</a>
+                </li>
+                <li><a href="{% url 'base:about' %}">{% trans "About" %}</a></li>
+                <li class="menu-item-has-children"><a href="{% url 'room:rooms' %}">{% trans "Otaqlarımız" %}</a>
+                    <ul class="sub-menu">
+                        {% for category in categories %}
+                            <li>
+                                <a href="{% url 'room:rooms' %}?category={{ category.slug }}">{{ category.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="menu-item-has-children"><a href="{% url 'base:index' %}#services">{% trans "Xidmətlərimiz" %}</a>
+                    <ul class="sub-menu">
+                        {% for service in services %}
+                            <li>
+                                <a href="{% url 'service:service_details' service.slug %}">{{ service.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="{% url 'blog:blogs' %}">{% trans "Blog" %}</a></li>
+                <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

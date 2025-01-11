@@ -1,0 +1,136 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Əlaqə' %} {% endblock %}
+
+{% block content %}
+
+	<div class="breadcumb-area d-flex align-items-center" style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-12">
+					<div class="breacumb-content">
+						<div class="breadcum-title">
+							<h4>{% trans 'Əlaqə' %}</h4>
+						</div>
+						<ul>
+							<li><a href="{% url 'base:index' %}">{% trans 'Ana Səhifə' %}</a></li>
+							<li>/</li>
+							<li>{% trans 'Əlaqə' %}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="contact-area style-two inner">
+		<div class="container">
+			<div class="row add-backgroun">
+				<div class="col-lg-6">
+					<div class="section-title two">
+						<h4>{% trans 'Əlaqə' %}</h4>
+						<h1>{% trans 'Bizimlə əlaqə' %}</h1>
+						<p class="section-desc-2">{% trans 'Otaqlar bron etmək üçün bizimlə əlaqə saxlayın!' %}</p>
+					</div>
+					<div class="single-contact-box">
+						<div class="contact-icon">
+							<i class="bi bi-telephone-fill"></i>
+						</div>
+						<div class="contact-title">
+							<h4>{% trans 'Zəng' %}</h4>
+							<p><a href="tel:{{ navigation_item.phone }}">{{ navigation_item.phone }}</a></p>
+						</div>
+					</div>
+					<div class="single-contact-box">
+						<div class="contact-icon">
+							<i class="bi bi-envelope"></i>
+						</div>
+						<div class="contact-title">
+							<h4>{% trans 'Email' %}</h4>
+							<p><a href="mailto:{{ navigation_item.email }}">{{ navigation_item.email }}</a></p>
+						</div>
+					</div>
+					<div class="single-contact-box">
+						<div class="contact-icon">
+							<i class="bi bi-geo-alt-fill"></i>
+						</div>
+						<div class="contact-title">
+							<h4>{% trans 'Ünvanımız' %}</h4>
+							<p><a href="">{{ navigation_item.address }}</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+                    <form action="" method="POST" id="dreamit-form">
+                        {% csrf_token %}
+                        <div class="single-contact-form">
+                            <div class="contact-content">
+                                <h4>{% trans 'Bizimlə əlaqə' %}</h4>
+                            </div>
+                            <div class="single-input-box">
+                                <input type="text" name="name" placeholder="Ad" required class="form-control">
+                            </div>
+                            <div class="single-input-box">
+                                <input type="text" name="phone" placeholder="Telefon" required class="form-control">
+                            </div>
+                            <div class="single-input-box">
+                                <input type="email" name="email" placeholder="Email ünvanınız" required class="form-control">
+                            </div>
+                            <div class="single-input-box">
+                                <select name="room" id="room" class="form-control" required>
+                                    <option value="" selected hidden>{% trans 'Otaq seçin' %}</option>
+                                    {% for room in rooms %}
+                                        <option value="{{ room.id }}">{{ room.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="single-input-box">
+                                <textarea name="message" id="message" placeholder="Mesaj yazın" class="form-control" rows="4"></textarea>
+                            </div>
+                            <div class="single-input-box">
+                                <button type="submit">{% trans 'Göndər' %}</button>
+                            </div>
+                        </div>
+                    </form>                        
+					<div id="status"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="google-map">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="google-map-content">
+					<iframe src="{{ navigation_item.map_link }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="brand-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-8">
+					<div class="row">
+                        <div class="brand-list owl-carousel">
+                            {% for brand in brands %}
+                                <div class="col-lg-12">
+                                    <div class="single-brand-box">
+                                        <div class="brand-thumb">
+                                            <img src="{{ brand.image.url }}" alt="{{ brand.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {{ room.name }} {% endblock %}
+
+{% block content %}
+
+	<div class="breadcumb-area d-flex align-items-center"
+		style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-12">
+					<div class="breacumb-content">
+						<div class="breadcum-title">
+							<h4>{{ room.name }} - {{ room.number }}</h4>
+						</div>
+						<ul>
+							<li><a href="{% url 'base:index' %}">{% trans 'Ana səhifə' %}</a></li>
+							<li>/</li>
+							<li>{{ room.name }} - {{ room.number }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="room-details">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="row">
+						<div class="room-details-list owl-carousel">
+							<div class="col-lg-12">
+								<div class="room-detils-thumb">
+									<img src="{{ room.image.url }}" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="room-details-content">
+								<a href="https://api.whatsapp.com/send?phone={{ room.owner_number }}" class="wp" target="_blank"><i
+										class="fab fa-whatsapp"></i> {% trans 'Whatsapp-la əlaqə' %}</a>
+								<h4>{{ room.name }}</h4>
+								<h1>{{ room.name }} - {{ room.number }}</h1>
+								<p class="room-detils-desc" data-cue="zoomIn">{{ room.description|linebreaks }}</p>
+
+								<div class="room-details-check-box" data-cue="zoomIn">
+									<div class="room-details-check-content">
+										<span><img src="assets/images/inner/room-details-1.png" alt="">{% trans 'Giriş' %}</span>
+										<p class="check-item"><i class="bi bi-check2"></i>{% trans 'Giriş' %} {{ room.enter_time|time:"H:i" }}</p>
+									</div>
+								</div>
+
+								<div class="room-details-check-box upper" data-cue="zoomIn">
+									<div class="room-details-check-content">
+										<span><img src="assets/images/inner/room-details-2.png" alt="">{% trans 'Çıxış' %}</span>
+										<p class="check-item"><i class="bi bi-check2"></i>{% trans 'Çıxış' %} {{ room.exit_time|time:"H:i" }}</p>
+									</div>
+								</div>
+								<h1 class="room-detils-title-2" data-cue="zoomIn">{% trans 'Əlavə Xüsusiyyətlər' %}</h1>
+								<div class="room-detls-list-item" data-cue="zoomIn">
+									<ul>
+                                        {% for item in room.features.all %}
+										    <li>
+                                                <i class="bi bi-check2"></i>{{ item.name }}
+                                            </li>
+                                        {% endfor %}
+									</ul>
+								</div>
+							</div>
+							<div class="blog-area blog-related-area">
+								<div class="row post-items-style3">
+                                    {% for item in room.images.all %}
+                                        <div class="col-lg-4 col-md-6 col-6">
+                                            <div class="single_related">
+                                                <div class="related_thumb">
+                                                    <a href="{{ item.image.url }}" data-fancybox="blog-images">
+                                                        <img src="{{ item.image.url }}" alt="">
+                                                        <span class="zoom-icon"><i class="fa fa-search"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="booking-list">
+								<div class="booking-list-content">
+									<h4>Bron et</h4>
+								</div>
+								<div class="booking-item">
+
+									<ul>
+                                        <li class="bron-date">
+                                            <span>{% trans '08.12.2024 tarixinden 20.12.2024 tarixinədək bron olunub' %}
+                                        </li>
+                                        <li> <button disabled>{% trans 'Təsdiqlə' %}</button></li>
+										<form action="">
+											<li>
+												<div class="">
+													<h4>{% trans 'Giriş' %}</h4>
+													<input type="date" required="">
+												</div>
+											</li>
+											<li>
+												<h4>{% trans 'Çıxış' %}</h4>
+												<input type="date" required="">
+											</li>
+											<li> <a href=" {% url 'user:payment' %}">{% trans 'Təsdiqlə' %}</a></li>
+
+										</form>
+										<li><strong>{% trans 'Yetişkin' %} - </strong>{{ room.mature_capacity }}</li>
+										<li><strong>{% trans 'Uşaq' %} - </strong>{{ room.young_capacity }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="room-details-amenities">
+								<div class="room-details-amenities-content">
+									<h4>{% trans 'Təchizat' %}</h4>
+								</div>
+								<div class="room-amenities-item">
+									<ul>
+                                        {% for item in room.supplies.all %}
+                                            <li>
+                                                <i class="fas {{ item.icon }}"></i>{{ item.name }}
+                                            </li>
+                                        {% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="brand-area" data-cue="zoomIn">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-8">
+					<div class="row">
+                        <div class="brand-list owl-carousel">
+                            {% for brand in brands %}
+                                <div class="col-lg-12">
+                                    <div class="single-brand-box">
+                                        <div class="brand-thumb">
+                                            <img src="{{ brand.image.url }}" alt="{{ brand.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

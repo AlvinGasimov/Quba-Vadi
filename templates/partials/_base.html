@@ -1,0 +1,74 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE HTML>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% trans "Quba Vadi" %} | {% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="">
+
+    <link rel="icon" type="image/png" sizes="56x56" href="{% static 'assets/images/fav.png' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/animated-text.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/theme-default.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.transitions.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'venobox/venobox.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-icons.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/jquery.fancybox.min.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/scrollCue.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'assets/css/dark.css' %}" type="text/css" media="all">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.css' %}">
+    {% block css %} {% endblock %}
+
+</head>
+<body>
+
+    {% include 'partials/_navbar.html' %}
+
+    {% block content %} {% endblock %}
+
+    {% include 'partials/_footer.html' %}
+
+    <script src="{% static 'assets/js/vendor/jquery-3.6.2.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'assets/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.js' %}"></script>
+    <script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'venobox/venobox.js' %}"></script>
+    <script src="{% static 'assets/js/animated-text.js' %}"></script>
+    <script src="{% static 'venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrollUp.js' %}"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+    <script src="{% static 'assets/js/coustom.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.fancybox.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.barfiller.js' %}"></script>
+    <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/scrollCue.min.js' %}"></script>
+    {% block js %} {% endblock %}
+</body>
+
+</html>

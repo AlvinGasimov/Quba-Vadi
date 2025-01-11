@@ -1,0 +1,218 @@
+{% extends "partials/_base.html" %}
+{% load static %} 
+{% load i18n %}
+
+{% block title %} {% trans 'Otaqlar' %} {% endblock %}
+
+{% block content %}
+
+	<div class="breadcumb-area d-flex align-items-center"
+		style="background-image: url({% static 'assets/images/inner/breadcumb.jpg' %});">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-12">
+					<div class="breacumb-content">
+						<div class="breadcum-title">
+							<h4>Otaqlar</h4>
+						</div>
+						<ul>
+							<li><a href="{% url 'base:index' %}">Ana səhifə</a></li>
+							<li>/</li>
+							<li>Otaqlar</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="room-area rooms-area">
+		<div class="container mt-5">
+			<div class="row">
+                {% if page_obj %}
+                    {% for room in page_obj %}
+                        <div class="col-md-3 col-6">
+                            <div class="room-single-box">
+                                <div class="room-thumb">
+                                    <img src="{{ room.image.url }}" alt="">
+                                    <div class="room-details-button">
+                                        <a href="{% url 'room:room-details' room_slug=room.slug %}">{% trans 'Daha ətraflı' %}<i class="bi bi-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                                <div class="room-pricing">
+                                    <span class="dolar">{{ room.price }} ₼</span>
+                                    {% if room.discount_price %}
+                                        <span class="high-price">{{ room.discount_price }} ₼</span>
+                                    {% endif %}
+                                    <span>{% trans 'Gecə' %}</span>
+                                </div>
+                                <div class="room-content">
+                                    <a href="{% url 'room:room-details' room_slug=room.slug %}">{{ room.name }}</a>
+                                    <p>{{ room.mature_capacity }} {% trans 'valideyn' %}, {{ room.young_capacity }} {% trans 'uşaq' %}</p>
+                                </div>
+                                <div class="room-bottom">
+                                    <div class="room-bottom-icon">
+                                        <span>
+                                            <img src="{% static 'assets/images/home-1/room-bottom-icon.png' %}" alt="">
+                                            {{ room.bed_position }}
+                                        </span>
+                                    </div>
+                                    <div class="coustomar-rating">
+                                        <ul>
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= room.star_number %}
+                                                    <li><i class="bi bi-star-fill"></i></li>
+                                                {% else %}
+                                                    <li><i class="bi bi-star"></i></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        {% trans 'Hələ otaq əlavə olunmayıb' %}
+                    </div>
+                {% endif %}
+			</div>
+			
+			<div class="pagination-area">
+                <div thumbsSlider="" class="swiper mySwiper th-pagination">
+                    <div class="swiper-wrapper">
+                        {% if page_obj.has_previous %}
+                            <div class="swiper-slide">
+                                <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i></a></li>
+                            </div>
+                        {% else %}
+                            <div class="swiper-slide">
+                                <li class="disabled"><a><i class="fa-solid fa-chevron-left"></i></a></li>
+                            </div>
+                        {% endif %}
+            
+                        {% for page_num in page_obj.paginator.page_range %}
+                            <div class="swiper-slide">
+                                <li>
+                                    {% if page_num == page_obj.number %}
+                                        <a class="active" href="?page={{ page_num }}">{{ page_num }}</a>
+                                    {% else %}
+                                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                                    {% endif %}
+                                </li>
+                            </div>
+                        {% endfor %}
+            
+                        {% if page_obj.has_next %}
+                            <div class="swiper-slide">
+                                <li><a href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a></li>
+                            </div>
+                        {% else %}
+                            <div class="swiper-slide">
+                                <li class="disabled"><a><i class="fa-solid fa-chevron-right"></i></a></li>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+                         
+            
+		</div>
+	</div>
+
+	<div class="brand-area" data-cue="zoomIn">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-8">
+					<div class="row">
+                        <div class="brand-list owl-carousel">
+                            {% for brand in brands %}
+                                <div class="col-lg-12">
+                                    <div class="single-brand-box">
+                                        <div class="brand-thumb">
+                                            <img src="{{ brand.image.url }}" alt="{{ brand.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %} 
+
+{% block js %}
+
+	<script>
+
+		document.addEventListener('DOMContentLoaded', function () {
+			var swiperThumbs = new Swiper(".mySwiper", {
+				spaceBetween: 10,
+				slidesPerView: 5,
+				freeMode: true,
+				watchSlidesProgress: true,
+				navigation: {
+					nextEl: ".swiper-button-next-thumbs",
+					prevEl: ".swiper-button-prev-thumbs",
+				},
+				breakpoints: {
+					576: {
+						slidesPerView: 5, // Small tablets
+					},
+					768: {
+						slidesPerView: 6, // Small tablets
+					},
+					992: {
+						slidesPerView: 6, // Large tablets
+					},
+					1200: {
+						slidesPerView: 5, // Desktop
+					},
+				},
+				on: {
+					init: function () {
+						toggleNavigationButtons(this);
+					},
+					resize: function () {
+						toggleNavigationButtons(this);
+					},
+				}
+			});
+
+
+			function toggleNavigationButtons(swiper) {
+				// Ensure swiper has fully initialized before querying slides
+				setTimeout(() => {
+					const totalSlides = swiper.slides.length;
+					const visibleSlides = swiper.params.slidesPerView;
+
+					const nextButton = document.querySelector(".swiper-button-next");
+					const prevButton = document.querySelector(".swiper-button-prev");
+
+					if (nextButton && prevButton) {
+
+						if (totalSlides <= visibleSlides) {
+							nextButton.classList.add('dnone');
+							prevButton.classList.add('dnone');
+							nextButton.style.display = 'none';
+							prevButton.style.display = 'none';
+						} else {
+							nextButton.style.display = 'block';
+							prevButton.style.display = 'block';
+						}
+					} else {
+						console.error('Navigation buttons not found');
+					}
+				}, 100); // Added a bit more delay to ensure proper rendering
+			}
+		});
+
+
+	</script>
+
+{% endblock %}
